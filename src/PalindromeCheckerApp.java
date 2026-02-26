@@ -1,8 +1,8 @@
 /**
- * Use Case 11 – Palindrome Service Class
+ * Use Case 12 – Strategy Pattern (Stack Based Palindrome)
  *
- * This program uses a separate service class
- * to check whether a string is a palindrome.
+ * This program demonstrates Stack-based implementation
+ * of the PalindromeStrategy interface.
  *
  * @author Developer
  */
@@ -10,46 +10,54 @@
 public class PalindromeCheckerApp {
 
     /**
-     * Application entry point for CLI
+     * Application entry point
      */
     public static void main(String[] args) {
 
-        String input = "racecar";
+        String input = "Level";
 
-        // Create service object
-        PalindromeService service = new PalindromeService();
+        // Use Stack strategy
+        PalindromeStrategy strategy = new StackStrategy();
 
-        boolean result = service.checkPalindrome(input);
+        boolean result = strategy.check(input);
 
         System.out.println("Input: " + input);
-        System.out.println("Is Palindrome? " + result);
+        System.out.println("Is Palindrome: " + result);
     }
 }
 
 /**
- * Service class that contains palindrome logic
+ * PalindromeStrategy Interface
  */
-class PalindromeService {
+interface PalindromeStrategy {
+    boolean check(String input);
+}
 
-    /**
-     * Checks whether the input string is a palindrome
-     * @param input input string
-     * @return true if palindrome, otherwise false
-     */
-    public boolean checkPalindrome(String input) {
+/**
+ * StackStrategy implements PalindromeStrategy
+ * Uses Stack (LIFO) logic for palindrome validation
+ */
+class StackStrategy implements PalindromeStrategy {
 
-        int start = 0;
-        int end = input.length() - 1;
+    @Override
+    public boolean check(String input) {
 
-        // Compare characters using two-pointer technique
-        while (start < end) {
+        // Convert to lowercase for case-insensitive check
+        input = input.toLowerCase();
 
-            if (input.charAt(start) != input.charAt(end)) {
+        // Create a stack to store characters
+        java.util.Stack<Character> stack = new java.util.Stack<>();
+
+        // Push characters of the input string to the stack
+        for (char c : input.toCharArray()) {
+            stack.push(c);
+        }
+
+        // Compare characters using the stack
+        for (char c : input.toCharArray()) {
+            if (c != stack.pop()) {
                 return false;
             }
-
-            start++;
-            end--;
         }
 
         return true;
