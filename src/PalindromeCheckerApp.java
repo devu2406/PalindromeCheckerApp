@@ -1,10 +1,16 @@
 /**
- * Use Case 12 – Strategy Pattern (Stack Based Palindrome)
+ * Use Case 13 – Performance Comparison
  *
- * This program demonstrates Stack-based implementation
- * of the PalindromeStrategy interface.
+ * This class compares execution performance
+ * of palindrome validation using a Stack strategy.
  *
- * @author Developer
+ * It:
+ * 1. Captures execution start time
+ * 2. Executes palindrome logic
+ * 3. Captures end time
+ * 4. Calculates total execution duration
+ *
+ * @version 15.0
  */
 
 public class PalindromeCheckerApp {
@@ -16,44 +22,50 @@ public class PalindromeCheckerApp {
 
         String input = "Level";
 
-        // Use Stack strategy
         PalindromeStrategy strategy = new StackStrategy();
+
+        // Capture start time (nanoseconds)
+        long startTime = System.nanoTime();
 
         boolean result = strategy.check(input);
 
+        // Capture end time
+        long endTime = System.nanoTime();
+
+        // Calculate execution time
+        long executionTime = endTime - startTime;
+
         System.out.println("Input: " + input);
-        System.out.println("Is Palindrome: " + result);
+        System.out.println("Is Palindrome? " + result);
+        System.out.println("Execution Time: " + executionTime);
     }
 }
 
 /**
- * PalindromeStrategy Interface
+ * Strategy Interface
  */
 interface PalindromeStrategy {
     boolean check(String input);
 }
 
 /**
- * StackStrategy implements PalindromeStrategy
- * Uses Stack (LIFO) logic for palindrome validation
+ * Stack-based implementation
  */
 class StackStrategy implements PalindromeStrategy {
 
     @Override
     public boolean check(String input) {
 
-        // Convert to lowercase for case-insensitive check
         input = input.toLowerCase();
 
-        // Create a stack to store characters
         java.util.Stack<Character> stack = new java.util.Stack<>();
 
-        // Push characters of the input string to the stack
+        // Push characters
         for (char c : input.toCharArray()) {
             stack.push(c);
         }
 
-        // Compare characters using the stack
+        // Compare characters
         for (char c : input.toCharArray()) {
             if (c != stack.pop()) {
                 return false;
