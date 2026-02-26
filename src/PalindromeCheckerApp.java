@@ -1,12 +1,36 @@
-public class PalindromeCheckerApp {
-    public static void main(String[] args) {
-        System.out.println(" Welcome to Palindrome Checker App ");
-        System.out.println("Application Name : Palindrome Checker");
-        System.out.println("Version          : 1.0");
-        System.out.println("Description      : This application checks whether");
-        System.out.println("                   a given string is a palindrome.");
+import java.util.Scanner;
 
-        System.out.println("System initialized" + " successfully.");
+public class PalindromeCheckerApp {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Input: ");
+        String input = sc.nextLine();
+
+        // Convert the string into a character array
+        char[] chars = input.toCharArray();
+
+        // Initialize pointers
+        int start = 0;
+        int end = chars.length - 1;
+
+        // Assume it is palindrome
+        boolean isPalindrome = true;
+
+        // Compare characters until pointers cross
+        while (start < end) {
+            if (chars[start] != chars[end]) {
+                isPalindrome = false;
+                break;
+            }
+            start++;
+            end--;
+        }
+
+        System.out.println("Is Palindrome?: " + isPalindrome);
+
+        sc.close();
     }
 }
-
